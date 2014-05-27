@@ -64,7 +64,12 @@
         return false;
       });
 
+
+      window.onerror = function (errorMsg, url, lineNumber) {
+        console.error("There was a bit of a cafful, but it's fine now.");
+        return true;
       }
+
     }());
   </script
 </body>
