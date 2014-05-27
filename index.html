@@ -23,25 +23,45 @@
   <script>
     (function () {
       "use strict";
+
       $("form#signup").on('submit', function (event) {
         event.preventDefault();
-        
-        var response = $.ajax({
-          type: "POST",
-          url: formURL,
-          data: {
-            "entry.1942051403": "test@example.com"
-          },
-          dataType: "jsonp"
-        });
 
-        response.done(function () {
+        var response, announceSuccess, announceError;
+
+        announceSuccess = function () {
           toastr.success("Your request to have your slacks upgraded to the 21st centry has been recieved. Thanks for your interest!", "Thanks!");
-        });
+        };
 
-        response.fail(function (err) {
-          toaster.error("Something went wrong. Please try again later.", "Oops!")
-        });
+        announceError = function () {
+          toastr.error("Something went wrong. Please try again later.", "Oops!")
+        };
+
+        try {
+          response = $.ajax({
+            type: "POST",
+            url: $(this).attr('action'),
+            data: {
+              "entry.1942051403": $(this).find("input[type=email]").val()
+            },
+            dataType: "jsonp"
+          });
+
+          response.done(announceSuccess);
+
+          response.fail(function (err) {
+            if (err.status != 200) {
+              announceError();
+            } else {
+              announceSuccess();
+            }
+          });
+        } catch (e) {
+          console.error("There was a bit of a cafful");
+        }
+
+
+        return false;
       });
 
       toastr.options = {
