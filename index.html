@@ -37,36 +37,31 @@
           toastr.error("Something went wrong. Please try again later.", "Oops!")
         };
 
-        try {
-          response = $.ajax({
-            type: "POST",
-            url: $(this).attr('action'),
-            data: {
-              "entry.1942051403": $(this).find("input[type=email]").val()
-            },
-            dataType: "jsonp"
-          });
-
-          response.done(announceSuccess);
-
-          response.fail(function (err) {
-            if (err.status != 200) {
-              announceError();
-            } else {
-              announceSuccess();
-            }
-          });
-        } catch (e) {
-          console.error("There was a bit of a cafful");
-        }
-
+        response = $.ajax({
+          type: "POST",
+          url: $(this).attr('action'),
+          data: {
+            "entry.1942051403": $(this).find("input[type=email]").val()
+          },
+          dataType: "jsonp"
+        });
+  
+        response.done(announceSuccess);
+  
+        response.fail(function (err) {
+          if (err.status != 200) {
+            announceError();
+          } else {
+            announceSuccess();
+          }
+        });
 
         return false;
       });
 
 
       window.onerror = function (errorMsg, url, lineNumber) {
-        console.error("There was a bit of a cafful, but it's fine now.");
+        console.error("There was a bit of a kerfuffle");
         return true;
       }
 
