@@ -1,22 +1,77 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-GB">
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Web Slacks</title>
+
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Open+Sans:600italic,700italic,800italic,400,700,800,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
     <style>
+
+      /** Layout */
+      
+      body {
+        padding-top: 5em;
+      }
+
+      h1 {
+      }
+
+      #main {
+        text-align: center;
+      }
+
+      form {
+        padding-top: 2em;
+      }
+
+      /** Fonts & Colours */
+
+      body {
+        font-family: 'Droid Sans', sans-serif;
+      }
+
+      h1 {
+        color: 000;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        font-size: 10em;
+      }
+
+      h1 span {
+        color: #ccc;
+      }
+
+      html, body, #main {
+        height: 100%;
+      }
+
+      #main {
+        height: 100%;
+        background-image: url('/images/slacks2.jpg');
+        background-repeat: no-repeat;
+        background-position: center 27em;
+      }
+
+
     </style>
 </head>
 
 <body>
-  <h1>WebSlacks</h1>
-  <h2>For all your web-scale leg-focussed vesture</h2>
-  <form id="signup" method="POST" action="https://docs.google.com/forms/d/1NGsdmoQtZWtT2Jkc9eXhC4eb9RjiZVoOnNxv-6hDX2o/formResponse">
-    <ul>
-      <li><input type="email" id="entry.1942051403" name="entry.1942051403"/></li>
-      <li><input type="submit" id="submit" value="Request Invite"/></li>
-    </ul>
-  </form>
+  <div class="container" id="main">
+    <h1><span>Web</span>Slacks</h1>
+    <h2 class="tagline">For all your web-scale leg-focussed vesture</h2>
+    <form id="signup" class="form-inline" method="POST" action="https://docs.google.com/forms/d/1NGsdmoQtZWtT2Jkc9eXhC4eb9RjiZVoOnNxv-6hDX2o/formResponse">
+      <div class="form-group">
+        <input type="email" class="form-control email-address" id="entry.1942051403" name="entry.1942051403" placeholder="email address" style="width: 400px"/>
+        <button type="submit" id="submit" class="btn btn-default">Request an invite</button>
+      </div>
+    </form>
+  </div>
   
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -30,7 +85,7 @@
         var response, announceSuccess, announceError;
 
         announceSuccess = function () {
-          toastr.success("Your request to have your slacks upgraded to the 21st centry has been recieved. Thanks for your interest!", "Thanks!");
+          toastr.success("<p>Your request to have your slacks upgraded to the 21st centry has been recieved.</p><p>Thanks for your interest!</p>", "Thanks!");
         };
 
         announceError = function () {
@@ -56,17 +111,52 @@
           }
         });
 
+        response.always(function () {
+          $("button#submit").attr("disabled", true).addClass("success")
+        });
+
         return false;
       });
 
-
       window.onerror = function (errorMsg, url, lineNumber) {
         console.error("There was a bit of a kerfuffle");
-        return true;
+        return false;
       }
 
     }());
-  </script
+  </script>
+  <script>
+    (function() {
+      "use strict";
+      var taglines, nextTagline;
+
+      taglines = [
+        "For all your web-scale leg-focussed vesture"
+      ];
+
+      nextTagline = function () {
+        var index = Math.floor(Math.random() * taglines.length);
+        return taglines[index];
+      };
+
+      $("h2.tagline").text(nextTagline());
+    }());
+  </script>
+  <script>
+    (function() {
+      "use strict";
+      var numOfSlacks = 2, nextSlacks;
+
+      nextSlacks = function () {
+        var index = Math.floor(Math.random() * numOfSlacks + 1),
+        background = "url(/images/slacks" + index + ".jpg)";
+        console.log(background);
+        return background;
+      };
+
+      $("#main").css("background-image", nextSlacks())
+    }());
+  </script>
 </body>
 
 </html>
