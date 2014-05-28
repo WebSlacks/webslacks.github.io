@@ -76,6 +76,25 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
   <script>
+   (function() {
+    "use strict";
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "positionClass": "toast-top-right",
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "0",
+      "timeOut": "0",
+      "extendedTimeOut": "0",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+   }())
+  </script>
+  <script>
     (function () {
       "use strict";
 
